@@ -948,7 +948,8 @@ input[type="radio"] {
   widows: 4;
 }
 .area-eliminacao,
-.area-cognicao {
+.area-cognicao,
+.area-sono {
   break-before: page;
   page-break-before: always;
 }

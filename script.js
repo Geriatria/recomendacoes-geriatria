@@ -358,14 +358,69 @@ delirium: {
   },
 
   sono: {
-    area: "Sono",
-    titulo: "Alterações do sono",
-    itens: [
-      "Mantenha horários regulares para se deitar e levantar.",
-      "Evite café, chá preto e outras bebidas estimulantes ao final do dia.",
-      "Evite períodos prolongados de sono durante o dia."
-    ]
-  },
+  area: "Sono",
+  titulo: "Alterações do sono",
+  subtitulo: "Higiene do sono",
+
+  secoes: [
+    {
+      titulo: "🌞 Durante o dia",
+      itens: [
+        "Manter horários regulares para levantar e iniciar o dia.",
+        "Procurar exposição à luz natural durante a manhã.",
+        "Manter-se ativo durante o dia, de acordo com as suas capacidades.",
+        "Evitar permanecer muito tempo na cama durante o dia."
+      ]
+    },
+
+    {
+      titulo: "😴 Sestas",
+      itens: [
+        "Evitar sestas prolongadas.",
+        "Se necessitar de dormir, preferir uma sesta curta e no início da tarde."
+      ]
+    },
+
+    {
+      titulo: "🌙 Ao final do dia",
+      itens: [
+        "Manter um horário regular para se deitar.",
+        "Criar uma rotina tranquila antes de dormir.",
+        "Evitar café, chá com cafeína e outras bebidas estimulantes ao final do dia.",
+        "Evitar refeições pesadas próximo da hora de deitar.",
+        "Reduzir televisão, telemóvel e outros ecrãs antes de dormir."
+      ]
+    },
+
+    {
+      titulo: "🛏️ Ambiente",
+      itens: [
+        "Manter o quarto tranquilo, escuro e com temperatura confortável."
+      ]
+    },
+
+    {
+      titulo: "🚨 Contacte a equipa de saúde se...",
+      alerta: true,
+      itens: [
+        "Tiver dificuldade em dormir de forma persistente.",
+        "Apresentar sonolência excessiva durante o dia.",
+        "Notar uma alteração importante ou persistente do padrão habitual de sono."
+      ]
+    },
+
+    {
+      titulo: "✅ Até à próxima consulta...",
+      checklist: true,
+      itens: [
+        "Mantive horários regulares para deitar e levantar.",
+        "Evitei sestas prolongadas.",
+        "Reduzi café e outras bebidas estimulantes ao final do dia.",
+        "Mantive uma rotina tranquila antes de dormir."
+      ]
+    }
+  ]
+},
 
   polimedicacao: {
     area: "Terapêutica",
@@ -661,7 +716,9 @@ const modoCompacto = selecionados.length >= 2;
     ? "area-eliminacao"
     : modoCompacto && area === "Cognição e comportamento"
       ? "area-cognicao"
-      : ""
+      : modoCompacto && area === "Sono"
+        ? "area-sono"
+        : ""
 }">
 
             <h3>
