@@ -1,22 +1,268 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Geriatria</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Consulta de Geriatria — ULS Região de Aveiro</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Consulta de Geriatria</h1>
+  <main class="aplicacao">
 
-<p>
-Gerador de recomendações para utentes e cuidadores.
-</p>
+    <!-- CABEÇALHO DA APLICAÇÃO -->
+    
+<header class="cabecalho-app">
 
-<button>
-Nova recomendação
-</button>
+  <div class="logos-app">
+
+    <img
+      src="imagens/geriatria-sem-texto.png"
+      alt="Consulta de Geriatria"
+      class="logo-consulta-app"
+    >
+
+    <img
+      src="imagens/logo-ulsra.jpg"
+      alt="ULS Região de Aveiro"
+      class="logo-ulsra-app"
+    >
+
+  </div>
+
+  <div class="texto-cabecalho-app">
+
+    <h1>Consulta de Geriatria</h1>
+
+    <p class="uls-texto">
+      ULS Região de Aveiro
+    </p>
+
+    <p class="subtitulo">
+      Recomendações gerais para utentes e cuidadores
+    </p>
+
+  </div>
+
+</header>
+
+
+    <!-- ZONA DE SELEÇÃO -->
+    <div class="zona-selecao">
+
+  
+      <section>
+
+        <h2>
+          Selecione as recomendações a incluir
+        </h2>
+
+
+        <div class="grelha-areas">
+
+          <!-- MOBILIDADE -->
+          <div class="area-selecao">
+
+            <h3>Mobilidade</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="quedas"
+              >
+              <span>Quedas</span>
+            </label>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="fragilidade"
+              >
+              <span>Fragilidade</span>
+            </label>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="sarcopenia"
+              >
+              <span>Sarcopenia</span>
+            </label>
+
+          </div>
+
+
+          <!-- NUTRIÇÃO -->
+          <div class="area-selecao">
+
+            <h3>Nutrição e hidratação</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="nutricao"
+              >
+              <span>Risco nutricional</span>
+            </label>
+
+            <label class="tema-selecao">
+    <input
+        type="checkbox"
+        value="alimentacao-demencia"
+    >
+    <span>Alimentação na Demência</span>
+</label>
+
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="hidratacao"
+              >
+              <span>Hidratação</span>
+            </label>
+
+          </div>
+
+          <!-- COGNIÇÃO E COMPORTAMENTO -->
+<div class="area-selecao">
+
+  <h3>Cognição e comportamento</h3>
+
+  <label class="tema-selecao">
+    <input
+      type="checkbox"
+      value="delirium"
+    >
+    <span>Delirium</span>
+  </label>
+
+</div>
+
+          <!-- ELIMINAÇÃO -->
+          <div class="area-selecao">
+
+            <h3>Eliminação</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="obstipacao"
+              >
+              <span>Obstipação</span>
+            </label>
+
+          </div>
+
+
+          <!-- SONO -->
+          <div class="area-selecao">
+
+            <h3>Sono</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="sono"
+              >
+              <span>Alterações do sono</span>
+            </label>
+
+          </div>
+
+
+          <!-- TERAPÊUTICA -->
+          <div class="area-selecao">
+
+            <h3>Terapêutica</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="polimedicacao"
+              >
+              <span>Polimedicação</span>
+            </label>
+
+          </div>
+
+
+          <!-- CUIDADOR -->
+          <div class="area-selecao">
+
+            <h3>Cuidador</h3>
+
+            <label class="tema-selecao">
+              <input
+                type="checkbox"
+                value="sobrecarga"
+              >
+              <span>Sobrecarga do cuidador</span>
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <button
+        type="button"
+        id="gerar-recomendacoes"
+        class="botao-principal"
+      >
+        Gerar recomendações
+      </button>
+
+    </div>
+
+
+    <!-- DOCUMENTO GERADO -->
+    <section
+      id="resultado"
+      class="resultado oculto"
+    >
+
+      <div id="conteudo-recomendacoes"></div>
+
+      <div class="acoes-resultado">
+
+        <button
+          type="button"
+          id="imprimir"
+          class="botao-principal"
+        >
+          Imprimir / Guardar em PDF
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- RODAPÉ DA APP -->
+    <footer class="rodape-app">
+
+      Ferramenta de apoio à Consulta de Geriatria.
+      As recomendações apresentadas são gerais e não
+      substituem a avaliação clínica individual.
+
+    </footer>
+
+  </main>
+
+
+  <script src="script.js"></script>
 
 </body>
+
 </html>

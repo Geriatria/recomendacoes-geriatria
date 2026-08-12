@@ -1,0 +1,1086 @@
+/* ================================
+   CONFIGURAÇÃO GERAL
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: #f2f6f6;
+  color: #243238;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.aplicacao {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ================================
+   CABEÇALHO DA APLICAÇÃO
+================================ */
+
+.cabecalho-app {
+  margin-bottom: 30px;
+  padding-bottom: 24px;
+
+  text-align: center;
+
+  border-bottom: 3px solid #176b68;
+}
+
+.logos-app {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 18px;
+}
+
+.logo-consulta-app {
+  width: 95px;
+  height: auto;
+}
+
+.logo-ulsra-app {
+  width: 170px;
+  max-height: 80px;
+
+  object-fit: contain;
+}
+
+.texto-cabecalho-app h1 {
+  margin: 0 0 5px;
+
+  font-size: 30px;
+
+  color: #18383a;
+}
+
+.uls-texto {
+  margin: 0 0 4px;
+
+  font-weight: bold;
+
+  color: #176b68;
+}
+
+.subtitulo {
+  margin: 0;
+
+  color: #63787d;
+}
+
+
+/* ================================
+   TÍTULOS
+================================ */
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin: 0 0 17px;
+  font-size: 21px;
+  color: #20383b;
+}
+
+
+/* ================================
+   DESTINATÁRIO
+================================ */
+
+.opcoes-destinatario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 180px;
+
+  padding: 14px 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #cad7da;
+  border-radius: 9px;
+
+  cursor: pointer;
+}
+
+.opcao:hover {
+  border-color: #176b68;
+  background: #f5fbfa;
+}
+
+
+/* ================================
+   ÁREAS DE SELEÇÃO
+================================ */
+
+.grelha-areas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.area-selecao {
+  padding: 17px;
+
+  background: #f9fbfb;
+
+  border: 1px solid #d4dfe1;
+  border-radius: 10px;
+}
+
+.area-selecao h3 {
+  margin: 0 0 14px;
+
+  color: #176b68;
+  font-size: 18px;
+}
+
+.tema-selecao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 10px;
+  padding: 13px 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #d0dadd;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.tema-selecao:last-child {
+  margin-bottom: 0;
+}
+
+.tema-selecao:hover {
+  border-color: #176b68;
+  background: #f5fbfa;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 19px;
+  height: 19px;
+
+  accent-color: #176b68;
+}
+
+
+/* ================================
+   BOTÕES
+================================ */
+
+.botao-principal {
+  width: 100%;
+
+  padding: 16px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #176b68;
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.botao-principal:hover {
+  background: #105653;
+}
+
+
+/* ================================
+   RESULTADO / DOCUMENTO
+================================ */
+
+.resultado {
+  margin-top: 34px;
+  padding: 30px;
+
+  border: 1px solid #d2dddf;
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+.oculto {
+  display: none;
+}
+
+
+/* ================================
+   CABEÇALHO DO DOCUMENTO
+================================ */
+
+.cabecalho-documento {
+  margin-bottom: 26px;
+}
+
+.logotipos-documento {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 70px;
+
+  margin-bottom: 12px;
+}
+
+.logo-consulta-documento {
+  width: 72px;
+  height: auto;
+}
+
+.logo-ulsra-documento {
+  width: 135px;
+  max-height: 62px;
+  object-fit: contain;
+}
+
+.titulo-documento {
+  margin: 0;
+
+  text-align: center;
+
+  color: #176b68;
+
+  font-size: 24px;
+}
+
+.identificacao-documento {
+  margin-top: 17px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px 24px;
+
+  padding: 14px 0;
+
+  border-top: 1px solid #cad8da;
+  border-bottom: 1px solid #cad8da;
+}
+
+.identificacao-documento p {
+  margin: 0;
+}
+
+
+/* ================================
+   ÁREAS DO DOCUMENTO
+================================ */
+
+.bloco-area {
+  margin-bottom: 28px;
+
+  break-inside: avoid;
+}
+
+.bloco-area h3 {
+  margin: 0 0 16px;
+
+  padding: 9px 14px;
+
+  color: white;
+  background: #176b68;
+
+  border-radius: 5px;
+
+  font-size: 18px;
+}
+
+.bloco-tema {
+  margin-bottom: 20px;
+}
+
+.bloco-tema h4 {
+  margin: 0 0 10px;
+
+  font-size: 17px;
+
+  color: #263238;
+}
+
+
+/* ================================
+   VISTOS NAS RECOMENDAÇÕES
+================================ */
+
+.bloco-tema ul {
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.bloco-tema li {
+  position: relative;
+
+  margin-bottom: 9px;
+
+  padding-left: 30px;
+
+  line-height: 1.5;
+}
+
+.bloco-tema li::before {
+  content: "✓";
+
+  position: absolute;
+
+  left: 4px;
+  top: 0;
+
+  color: #176b68;
+
+  font-size: 17px;
+  font-weight: bold;
+}
+
+
+/* ================================
+   RODAPÉ DO DOCUMENTO
+================================ */
+
+.rodape-documento {
+  margin-top: 32px;
+
+  padding-top: 16px;
+
+  border-top: 1px solid #cad8da;
+
+  color: #536a70;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.rodape-documento-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.numero-pagina {
+  white-space: nowrap;
+}
+
+.versao-documento {
+  margin-top: 8px;
+}
+
+
+/* ================================
+   OUTROS
+================================ */
+
+.acoes-resultado {
+  margin-top: 25px;
+}
+
+.rodape-app {
+  margin-top: 30px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #d4dfe1;
+
+  color: #647a7f;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* ================================
+   TABLET / TELEMÓVEL
+================================ */
+
+@media (max-width: 700px) {
+
+    .logos-app {
+  flex-direction: column;
+  gap: 14px;
+}
+
+.logo-ulsra-app {
+  width: 150px;
+}
+
+  body {
+    padding: 10px;
+  }
+
+  .aplicacao {
+    padding: 20px 15px;
+  }
+
+  .cabecalho-app {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .grelha-areas {
+    grid-template-columns: 1fr;
+  }
+
+  .opcao {
+    width: 100%;
+  }
+
+  .identificacao-documento {
+    grid-template-columns: 1fr;
+  }
+
+  .logotipos-documento {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+}
+
+
+/* ================================
+   IMPRESSÃO / PDF
+================================ */
+
+@page {
+  size: A4;
+  margin: 16mm 15mm 18mm 15mm;
+}
+
+@media print {
+
+  body {
+    margin: 0;
+    padding: 0;
+
+    background: white;
+
+    color: black;
+  }
+
+  .aplicacao {
+    width: 100%;
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+
+    box-shadow: none;
+  }
+
+  .cabecalho-app,
+  .zona-selecao,
+  #gerar-recomendacoes,
+  .acoes-resultado,
+  .rodape-app {
+    display: none !important;
+  }
+
+  #resultado {
+    display: block !important;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+  }
+
+  .bloco-area {
+    break-inside: avoid;
+  }
+
+  .bloco-tema {
+    break-inside: avoid;
+  }
+
+  .titulo-documento,
+  .bloco-area h3 {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+/* Melhor distribuição do conteúdo pelas páginas */
+
+.bloco-area {
+  break-inside: auto;
+  page-break-inside: auto;
+  margin-bottom: 14px;
+}
+
+.bloco-tema {
+  break-inside: auto;
+  page-break-inside: auto;
+  margin-bottom: 14px;
+}
+
+.explicacao-tema {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 12px;
+}
+
+.secao-tema {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+}
+
+.bloco-area h3,
+.titulo-tema-principal,
+.subtitulo-tema,
+.secao-tema h5 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.bloco-tema li {
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.secao-tema li {
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.objetivos-documento {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.rodape-documento {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+#resultado {
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.cabecalho-documento {
+  margin-bottom: 14px;
+}
+
+.logotipos-documento {
+  min-height: 48px;
+  margin-bottom: 6px;
+}
+
+.logo-consulta-documento {
+  width: 55px;
+}
+
+.logo-ulsra-documento {
+  width: 105px;
+  max-height: 48px;
+}
+
+.titulo-documento {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.identificacao-documento {
+  padding: 7px 0;
+  gap: 4px 18px;
+}
+
+.bloco-area {
+  margin-bottom: 10px;
+}
+
+.bloco-area h3 {
+  padding: 5px 9px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.titulo-tema-principal {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.explicacao-tema {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.explicacao-tema p {
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+
+.subtitulo-tema {
+  margin: 10px 0 7px;
+  font-size: 15px;
+}
+
+.secao-tema {
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+}
+
+.secao-tema h5 {
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.secao-tema li {
+  margin-bottom: 2px;
+  padding-left: 22px;
+  line-height: 1.3;
+}
+
+.rodape-documento {
+  margin-top: 12px;
+  padding-top: 8px;
+}
+
+.objetivos-documento {
+  margin-top: 12px;
+}
+#resultado {
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.cabecalho-documento {
+  margin-bottom: 14px;
+}
+
+.logotipos-documento {
+  min-height: 48px;
+  margin-bottom: 6px;
+}
+
+.logo-consulta-documento {
+  width: 55px;
+}
+
+.logo-ulsra-documento {
+  width: 105px;
+  max-height: 48px;
+}
+
+.titulo-documento {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.identificacao-documento {
+  padding: 7px 0;
+}
+
+.bloco-area {
+  margin-bottom: 10px;
+}
+
+.bloco-area h3 {
+  padding: 5px 9px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.titulo-tema-principal {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.explicacao-tema {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.subtitulo-tema {
+  margin: 9px 0 6px;
+  font-size: 14px;
+}
+
+.secao-tema {
+  margin-bottom: 5px;
+  padding-bottom: 4px;
+}
+
+.secao-tema h5 {
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+.secao-tema li {
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+
+.rodape-documento {
+  margin-top: 10px;
+  padding-top: 7px;
+}
+/* =========================================
+   MODO COMPACTO - 2 OU MAIS TEMAS
+========================================= */
+
+/* =========================================
+   MODO COMPACTO PARA IMPRESSÃO
+   ========================================= */
+
+.tema-compacto {
+  display: block !important;
+  column-count: 2;
+  column-gap: 18px;
+}
+
+/* Títulos ficam sempre a toda a largura */
+.tema-compacto > .titulo-tema-principal,
+.tema-compacto > .explicacao-tema,
+.tema-compacto > .subtitulo-tema {
+  column-span: all;
+}
+
+/* Cada secção mantém-se junta */
+.tema-compacto > .secao-tema {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+
+  margin: 0 0 8px;
+  padding: 5px 0 7px;
+}
+
+/* Alertas */
+.tema-compacto > .secao-alerta {
+  background: #fff7f3;
+  border-left: 4px solid #b65c39;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+/* Checklist */
+.tema-compacto > .secao-checklist {
+  background: #f3f8f6;
+  border-left: 4px solid #176b68;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+/* Na checklist queremos apenas o quadrado */
+.tema-compacto > .secao-checklist li::before {
+  content: none !important;
+}
+
+.tema-compacto > .secao-checklist li {
+  padding-left: 0;
+}
+
+/* Não deixar Objetivos sozinho no fundo da página */
+.objetivos-documento {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  margin-top: 12px;
+}
+
+/* Títulos ocupam sempre a largura total */
+.tema-compacto > .titulo-tema-principal,
+.tema-compacto > .explicacao-tema,
+.tema-compacto > .subtitulo-tema {
+  grid-column: 1 / -1;
+}
+
+/* Cada pequena secção ocupa uma coluna */
+.tema-compacto > .secao-tema {
+  margin: 0 0 6px;
+  padding: 5px 0 7px;
+}
+
+/* Alertas ocupam toda a largura */
+.tema-compacto > .secao-alerta {
+  grid-column: 1 / -1;
+}
+
+/* Checklist também ocupa toda a largura */
+.tema-compacto > .secao-checklist {
+  grid-column: 1 / -1;
+}
+/* Permitir que a checklist aproveite o espaço restante da página */
+
+.tema-compacto > .secao-checklist {
+  grid-column: 1 / -1;
+
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.tema-compacto > .secao-checklist h5 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.tema-compacto > .secao-checklist li {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+/* ALERTA + CHECKLIST LADO A LADO NO MODO COMPACTO */
+
+.tema-compacto > .secao-alerta {
+  grid-column: auto;
+  background: #fff7f3;
+  border-left: 4px solid #b65c39;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.tema-compacto > .secao-checklist {
+  grid-column: auto;
+  background: #f3f8f6;
+  border-left: 4px solid #176b68;
+  padding: 8px 10px;
+  border-radius: 4px;
+
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.tema-compacto > .secao-alerta h5 {
+  color: #9b4d32;
+}
+
+.tema-compacto > .secao-checklist h5 {
+  color: #176b68;
+}
+
+/* retirar o visto automático da checklist */
+.tema-compacto > .secao-checklist li::before {
+  content: none !important;
+}
+
+.tema-compacto > .secao-checklist li {
+  padding-left: 0;
+}
+/* Evitar que um novo tema comece sozinho no fim da página */
+
+.bloco-area > h3 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.bloco-tema > .titulo-tema-principal,
+.bloco-tema > .subtitulo-tema {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* Mantém o início do tema junto */
+.bloco-tema > .subtitulo-tema + .secao-tema {
+  break-before: avoid;
+  page-break-before: avoid;
+}
+
+/* Evitar títulos isolados */
+.bloco-area,
+.bloco-tema {
+  orphans: 3;
+  widows: 3;
+}
+@media print {
+  .bloco-area {
+    break-inside: auto;
+  }
+
+  .bloco-area > h3 {
+    break-after: avoid;
+  }
+
+  .bloco-area > h3 + .bloco-tema {
+    break-before: avoid;
+  }
+}
+/* Evitar título de tema isolado no fim da página */
+
+.bloco-tema-completo > .titulo-tema-principal,
+.bloco-tema-completo > .subtitulo-tema {
+  break-after: avoid-page !important;
+  page-break-after: avoid !important;
+}
+
+.bloco-tema-completo > .subtitulo-tema + .secao-tema {
+  break-before: avoid-page !important;
+  page-break-before: avoid !important;
+}
+
+/* O início do tema deve ficar junto */
+.bloco-tema-completo {
+  orphans: 4;
+  widows: 4;
+}
+.area-eliminacao,
+.area-cognicao {
+  break-before: page;
+  page-break-before: always;
+}
+}
+
+/* =========================================
+   TEMAS CLÍNICOS COMPLETOS
+========================================= */
+
+.titulo-tema-principal {
+  margin: 0 0 16px;
+
+  color: #18383a;
+
+  font-size: 21px;
+}
+
+.explicacao-tema {
+  margin-bottom: 20px;
+
+  padding: 15px 17px;
+
+  background: #f4f8f8;
+
+  border-left: 4px solid #176b68;
+
+  border-radius: 4px;
+}
+
+.explicacao-tema strong {
+  color: #176b68;
+
+  font-size: 16px;
+}
+
+.explicacao-tema p {
+  margin: 8px 0 0;
+
+  line-height: 1.5;
+}
+
+.subtitulo-tema {
+  margin: 22px 0 16px;
+
+  color: #176b68;
+
+  font-size: 18px;
+}
+
+.secao-tema {
+  margin-bottom: 18px;
+
+  padding-bottom: 15px;
+
+  border-bottom: 1px solid #e0e7e8;
+}
+
+.secao-tema:last-child {
+  border-bottom: 0;
+}
+
+.secao-tema h5 {
+  margin: 0 0 9px;
+
+  color: #263238;
+
+  font-size: 16px;
+}
+
+.secao-tema ul {
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.secao-tema li {
+  position: relative;
+
+  margin-bottom: 7px;
+
+  padding-left: 28px;
+
+  line-height: 1.45;
+}
+
+.secao-tema li::before {
+  content: "✓";
+
+  position: absolute;
+
+  left: 3px;
+
+  color: #176b68;
+
+  font-weight: bold;
+}
+
+
+/* ALERTAS */
+
+.secao-alerta {
+  margin-top: 20px;
+
+  padding: 14px 16px;
+
+  background: #fff8f4;
+
+  border-left: 4px solid #b65c39;
+
+  border-bottom: 0;
+
+  border-radius: 4px;
+}
+
+.secao-alerta h5 {
+  color: #8d452c;
+}
+
+.secao-alerta li::before {
+  color: #b65c39;
+}
+
+@page {
+  size: A4;
+  margin: 18mm 15mm 18mm 15mm;
+
+
+  @bottom-right {
+    content: "Página " counter(page) " de " counter(pages);
+    font-size: 9pt;
+    color: #4f6f73;
+  }
+}
