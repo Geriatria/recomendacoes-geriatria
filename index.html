@@ -8,6 +8,13 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="imagens/icon-192.png">
+
+  <meta
+    name="theme-color"
+    content="#147a76"
+  >
 
   <title>Consulta de Geriatria — ULS Região de Aveiro</title>
 
@@ -16,7 +23,11 @@
 
 <body>
 
-  <main class="aplicacao">
+  <a class="saltar-conteudo" href="#conteudo-principal">
+  Saltar para o conteúdo principal
+</a>
+
+ <main class="aplicacao" id="conteudo-principal">
 
     <!-- CABEÇALHO DA APLICAÇÃO -->
     
@@ -65,6 +76,18 @@
           Selecione as recomendações a incluir
         </h2>
 
+<div class="pesquisa-temas">
+
+  <span class="icone-pesquisa">⌕</span>
+
+  <input
+    type="search"
+    id="pesquisa-temas"
+    placeholder="Pesquisar tema..."
+    aria-label="Pesquisar tema"
+  >
+
+</div>
 
         <div class="grelha-areas">
 
@@ -86,6 +109,8 @@
     type="checkbox"
     value="fragilidade"
     disabled
+    aria-disabled="true"
+aria-label="Fragilidade — em desenvolvimento"
   >
   <span>Fragilidade <small>— em desenvolvimento</small></span>
 </label>
@@ -95,6 +120,8 @@
     type="checkbox"
     value="sarcopenia"
     disabled
+    aria-disabled="true"
+aria-label="Sarcopenia — em desenvolvimento"
   >
   <span>Sarcopenia <small>— em desenvolvimento</small></span>
 </label>
@@ -121,6 +148,8 @@
     type="checkbox"
     value="hidratacao"
     disabled
+    aria-disabled="true"
+aria-label="Hidratação — em desenvolvimento"
   >
   <span>Hidratação <small>— em desenvolvimento</small></span>
 </label>
@@ -184,6 +213,8 @@
     type="checkbox"
     value="polimedicacao"
     disabled
+    aria-disabled="true"
+aria-label="Polimedicaçao — em desenvolvimento"
   >
   <span>Polimedicação <small>— em desenvolvimento</small></span>
 </label>
@@ -201,6 +232,8 @@
     type="checkbox"
     value="sobrecarga"
     disabled
+    aria-disabled="true"
+aria-label="Sobrecarga — em desenvolvimento"
   >
   <span>Sobrecarga do cuidador <small>— em desenvolvimento</small></span>
 </label>
@@ -211,14 +244,52 @@
 
       </section>
 
+      <div class="recomendacao-individual">
 
-      <button
-        type="button"
-        id="gerar-recomendacoes"
-        class="botao-principal"
-      >
-        Gerar recomendações
-      </button>
+  <label for="recomendacao-individual">
+    Recomendações individualizadas
+  </label>
+
+  <textarea
+    id="recomendacao-individual"
+    rows="4"
+    placeholder="Ex.: Utilizar o andarilho também dentro de casa."
+    aria-describedby="ajuda-recomendacao-individual"
+  ></textarea>
+
+  <small id="ajuda-recomendacao-individual">
+    Campo opcional. Esta informação será incluída no documento gerado.
+  </small>
+
+</div>
+
+      <div class="acoes-selecao">
+
+  <button
+    type="button"
+    id="gerar-recomendacoes"
+    class="botao-principal"
+  >
+    Gerar recomendações
+  </button>
+
+  <button
+    type="button"
+    id="nova-consulta"
+    class="botao-secundario"
+  >
+    Nova consulta
+  </button>
+
+  <button
+  type="button"
+  id="abrir-estatisticas"
+  class="botao-estatisticas"
+>
+  Estatísticas
+</button>
+
+</div>
 
     </div>
 
@@ -227,36 +298,156 @@
     <section
       id="resultado"
       class="resultado oculto"
+      aria-live="polite"
     >
+
+    <div class="modo-visualizacao">
+  <button
+    type="button"
+    id="modo-ecra"
+    class="modo-ativo"
+  >
+    Modo ecrã
+  </button>
+
+  <button
+    type="button"
+    id="modo-impressao"
+  >
+    Modo impressão
+  </button>
+</div>
 
       <div id="conteudo-recomendacoes"></div>
 
       <div class="acoes-resultado">
 
-        <button
-          type="button"
-          id="imprimir"
-          class="botao-principal"
-        >
-          Imprimir / Guardar em PDF
-        </button>
+  <button
+    type="button"
+    id="imprimir"
+    class="botao-principal"
+  >
+    Imprimir / Guardar em PDF
+  </button>
 
-      </div>
+  <button
+    type="button"
+    id="nova-consulta-resultado"
+    class="botao-secundario"
+  >
+    Nova consulta
+  </button>
+
+</div>
 
     </section>
 
+    <section
+  id="painel-estatisticas"
+  class="painel-estatisticas oculto"
+  aria-labelledby="titulo-estatisticas"
+>
+
+  <div class="cabecalho-estatisticas">
+    <h2 id="titulo-estatisticas">
+      Estatísticas da aplicação
+    </h2>
+
+    <div class="estat-periodo">
+  <label for="estat-filtro-periodo">Período:</label>
+
+  <select id="estat-filtro-periodo">
+    <option value="mes-atual">Este mês</option>
+    <option value="mes-anterior">Mês anterior</option>
+    <option value="ano-atual">Este ano</option>
+    <option value="total">Total</option>
+  </select>
+</div>
+
+    <button
+      type="button"
+      id="fechar-estatisticas"
+      class="fechar-estatisticas"
+      aria-label="Fechar estatísticas"
+    >
+      ×
+    </button>
+  </div>
+
+  <div class="resumo-estatisticas">
+
+    <div class="cartao-estatistica">
+      <span class="valor-estatistica" id="estat-total">0</span>
+      <span class="rotulo-estatistica">Documentos gerados</span>
+    </div>
+
+    <div class="cartao-estatistica">
+      <span class="valor-estatistica" id="estat-mes">0</span>
+      <span class="rotulo-estatistica">Dias com utilização</span>
+    </div>
+
+    <div class="cartao-estatistica">
+      <span class="valor-estatistica" id="estat-individualizadas">0</span>
+      <span class="rotulo-estatistica">Com recomendações individualizadas</span>
+    </div>
+
+    <div class="cartao-estatistica">
+      <span class="valor-estatistica" id="estat-tema-top">—</span>
+      <span class="rotulo-estatistica">Tema mais utilizado</span>
+    </div>
+
+  </div>
+
+  <div class="ranking-estatisticas">
+    <h3>Temas mais utilizados</h3>
+    <div id="lista-temas-estatisticas"></div>
+  </div>
+
+  <p class="nota-estatisticas">
+    Dados anónimos guardados apenas neste dispositivo.
+  </p>
+
+  <button
+  type="button"
+  id="limpar-estatisticas"
+  class="botao-limpar-estatisticas"
+>
+  Limpar dados de teste
+</button>
+
+</section>
 
     <!-- RODAPÉ DA APP -->
-    <footer class="rodape-app">
 
-      Ferramenta de apoio à Consulta de Geriatria.
-      As recomendações apresentadas são gerais e não
-      substituem a avaliação clínica individual.
+   <footer class="rodape-app">
+  <span>
+    Ferramenta de apoio à Consulta de Geriatria.
+    As recomendações apresentadas são gerais e não
+    substituem a avaliação clínica individual.
+  </span>
 
-    </footer>
+   <span class="credito-app">
+    App: Mafalda Marques · <span id="versao-app"></span>
+  </span>
+</footer>
 
   </main>
 
+  <div
+  id="aviso-atualizacao"
+  class="aviso-atualizacao oculto"
+  role="status"
+  aria-live="polite"
+>
+  <span>Está disponível uma nova versão da aplicação.</span>
+
+  <button
+    type="button"
+    id="botao-atualizar-app"
+  >
+    Atualizar agora
+  </button>
+</div>
 
   <script src="script.js"></script>
 

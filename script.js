@@ -1,3 +1,5 @@
+const APP_VERSION = "1.1";
+
 const recomendacoes = {
 
   quedas: {
@@ -588,9 +590,155 @@ function criarTemaCompleto(tema, modoCompacto = false) {
   return html;
 }
 
+function escaparHTML(texto) {
+  return texto
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+// =========================================
+// ESTATÍSTICAS ANÓNIMAS DE UTILIZAÇÃO
+// =========================================
+
+function registarUtilizacao(temasSelecionados, temRecomendacaoIndividual) {
+
+  const chave = "geriatria-estatisticas";
+
+  let estatisticas = JSON.parse(
+    localStorage.getItem(chave)
+  ) || {
+    totalDocumentos: 0,
+    temas: {},
+    recomendacoesIndividualizadas: 0,
+    utilizacaoPorDia: {},
+    detalhePorDia: {}
+  };
+
+  // Compatibilidade com estatísticas já existentes
+  if (!estatisticas.detalhePorDia) {
+    estatisticas.detalhePorDia = {};
+  }
+
+  const hoje = new Date().toISOString().slice(0, 10);
+
+
+  // =========================================
+  // MIGRAÇÃO DOS DADOS DE TESTE JÁ EXISTENTES
+  // =========================================
+
+  if (
+    Object.keys(estatisticas.detalhePorDia).length === 0 &&
+    estatisticas.totalDocumentos > 0
+  ) {
+
+    estatisticas.detalhePorDia[hoje] = {
+      documentos: estatisticas.totalDocumentos,
+      individualizadas: estatisticas.recomendacoesIndividualizadas,
+      temas: { ...estatisticas.temas }
+    };
+
+  }
+
+
+  // =========================================
+  // TOTAL GLOBAL
+  // =========================================
+
+  estatisticas.totalDocumentos += 1;
+
+
+  // =========================================
+  // TEMAS - TOTAL GLOBAL
+  // =========================================
+
+  temasSelecionados.forEach(function (tema) {
+
+    if (!estatisticas.temas[tema]) {
+      estatisticas.temas[tema] = 0;
+    }
+
+    estatisticas.temas[tema] += 1;
+
+  });
+
+
+  // =========================================
+  // RECOMENDAÇÕES INDIVIDUALIZADAS - GLOBAL
+  // =========================================
+
+  if (temRecomendacaoIndividual) {
+    estatisticas.recomendacoesIndividualizadas += 1;
+  }
+
+
+  // =========================================
+  // UTILIZAÇÃO POR DIA
+  // =========================================
+
+  if (!estatisticas.utilizacaoPorDia[hoje]) {
+    estatisticas.utilizacaoPorDia[hoje] = 0;
+  }
+
+  estatisticas.utilizacaoPorDia[hoje] += 1;
+
+
+  // =========================================
+  // DETALHE POR DIA
+  // =========================================
+
+  if (!estatisticas.detalhePorDia[hoje]) {
+
+    estatisticas.detalhePorDia[hoje] = {
+      documentos: 0,
+      individualizadas: 0,
+      temas: {}
+    };
+
+  }
+
+  const detalheHoje = estatisticas.detalhePorDia[hoje];
+
+  detalheHoje.documentos += 1;
+
+
+  if (temRecomendacaoIndividual) {
+    detalheHoje.individualizadas += 1;
+  }
+
+
+  temasSelecionados.forEach(function (tema) {
+
+    if (!detalheHoje.temas[tema]) {
+      detalheHoje.temas[tema] = 0;
+    }
+
+    detalheHoje.temas[tema] += 1;
+
+  });
+
+
+  // =========================================
+  // GUARDAR
+  // =========================================
+
+  localStorage.setItem(
+    chave,
+    JSON.stringify(estatisticas)
+  );
+
+}
+
 botaoGerar.addEventListener(
   "click",
   function () {
+
+    const recomendacaoIndividual = document
+  .getElementById("recomendacao-individual")
+  .value
+  .trim();
 
 
     const selecionados =
@@ -602,7 +750,16 @@ botaoGerar.addEventListener(
 
 const modoCompacto = selecionados.length >= 2;
 
-   
+const apenasQuedas =
+  selecionados.length === 1 &&
+  selecionados[0].value === "quedas";
+
+resultado.classList.toggle(
+  "impressao-quedas-unica",
+  apenasQuedas
+);
+
+  
 
     if (selecionados.length === 0) {
 
@@ -613,6 +770,10 @@ const modoCompacto = selecionados.length >= 2;
       return;
     }
 
+registarUtilizacao(
+  selecionados.map(input => input.value),
+  recomendacaoIndividual !== ""
+);
 
     const porArea = {};
 
@@ -749,46 +910,60 @@ const modoCompacto = selecionados.length >= 2;
 
     html += `
 
-      <div class="objetivos-documento">
+      ${recomendacaoIndividual ? `
+  <div class="objetivos-documento">
 
-        <h3>
-          📝 Objetivos até à próxima consulta
-        </h3>
+    <div class="bloco-individualizado">
 
-        <div class="linha-objetivo"></div>
+      <h3>📝 Recomendações individualizadas</h3>
 
-        <div class="linha-objetivo"></div>
-
-        <div class="linha-objetivo"></div>
-
+      <div class="texto-individualizado">
+        ${recomendacaoIndividual
+          .split('\n')
+          .filter(linha => linha.trim() !== "")
+          .map(linha => `<div>✓ ${escaparHTML(linha)}</div>`)
+          .join("")}
       </div>
+
+    </div>
+
+  </div>
+` : ""}
 
 
       <div class="rodape-documento">
 
-        <div class="rodape-documento-topo">
+  <div class="rodape-creditos">
 
-          <strong>
-            Consulta de Geriatria —
-            ULS Região de Aveiro
-          </strong>
+    <div class="rodape-documento-topo">
+      <strong>
+        Consulta de Geriatria — ULS Região de Aveiro
+      </strong>
+    </div>
 
-        </div>
+    <p>
+      Estas recomendações complementam a informação
+      prestada durante a consulta e não substituem a
+      avaliação clínica individual nem as orientações
+      específicas fornecidas pela equipa de saúde.
+    </p>
 
+  </div>
 
-        <p>
-          Estas recomendações complementam a informação
-          prestada durante a consulta e não substituem a
-          avaliação clínica individual nem as orientações
-          específicas fornecidas pela equipa de saúde.
-        </p>
+  <div class="rodape-qr oculto" id="rodape-qr">
 
+    <div class="qr-texto">
+      <strong>Mais informação</strong>
+      <span>
+        Aceda aos conteúdos digitais da Consulta de Geriatria
+      </span>
+    </div>
 
-        <div class="versao-documento">
-  Versão 1.0 · Desenvolvimento técnico: Mafalda Marques
+    <div class="qr-code" id="qr-code"></div>
+
+  </div>
+
 </div>
-
-      </div>
     `;
 
 
@@ -817,3 +992,593 @@ botaoImprimir.addEventListener(
 
   }
 );
+
+// ===============================
+// NOVA CONSULTA
+// ===============================
+
+function iniciarNovaConsulta() {
+
+  document
+    .querySelectorAll('input[type="checkbox"]:not(:disabled)')
+    .forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
+
+  const resultado = document.getElementById("resultado");
+
+  if (resultado) {
+    resultado.classList.add("oculto");
+  }
+
+  const conteudoRecomendacoes =
+    document.getElementById("conteudo-recomendacoes");
+
+  if (conteudoRecomendacoes) {
+    conteudoRecomendacoes.innerHTML = "";
+  }
+
+  // Limpa a pesquisa de temas
+if (campoPesquisa) {
+  campoPesquisa.value = "";
+  campoPesquisa.dispatchEvent(new Event("input"));
+}
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+const botaoNovaConsulta =
+  document.getElementById("nova-consulta");
+
+if (botaoNovaConsulta) {
+  botaoNovaConsulta.addEventListener(
+    "click",
+    iniciarNovaConsulta
+  );
+}
+
+
+const botaoNovaConsultaResultado =
+  document.getElementById("nova-consulta-resultado");
+
+if (botaoNovaConsultaResultado) {
+  botaoNovaConsultaResultado.addEventListener(
+    "click",
+    iniciarNovaConsulta
+  );
+}
+
+// ===============================
+// PESQUISA DE TEMAS
+// ===============================
+
+const campoPesquisa = document.getElementById("pesquisa-temas");
+
+if (campoPesquisa) {
+
+  campoPesquisa.addEventListener("input", function () {
+
+    const pesquisa = campoPesquisa.value
+      .toLowerCase()
+      .trim();
+
+    const areas = document.querySelectorAll(".area-selecao");
+
+    areas.forEach(function (area) {
+
+      const temas = area.querySelectorAll(".tema-selecao");
+      let temResultado = false;
+
+      temas.forEach(function (tema) {
+
+        const texto = tema.textContent.toLowerCase();
+
+        if (texto.includes(pesquisa)) {
+          tema.style.display = "";
+          temResultado = true;
+        } else {
+          tema.style.display = "none";
+        }
+
+      });
+
+      // Se nenhum tema desta área corresponder,
+      // esconde também a caixa da área
+      if (temResultado) {
+        area.style.display = "";
+      } else {
+        area.style.display = "none";
+      }
+
+    });
+
+  });
+
+}
+
+// ===============================
+// MODO DE VISUALIZAÇÃO
+// ===============================
+
+const botaoModoEcra = document.getElementById("modo-ecra");
+const botaoModoImpressao = document.getElementById("modo-impressao");
+
+function definirModoVisualizacao(modo) {
+
+  if (modo === "impressao") {
+
+    document.body.classList.add("modo-impressao");
+
+    botaoModoImpressao?.classList.add("modo-ativo");
+    botaoModoEcra?.classList.remove("modo-ativo");
+
+  } else {
+
+    document.body.classList.remove("modo-impressao");
+
+    botaoModoEcra?.classList.add("modo-ativo");
+    botaoModoImpressao?.classList.remove("modo-ativo");
+
+  }
+}
+
+if (botaoModoEcra) {
+  botaoModoEcra.addEventListener("click", function () {
+    definirModoVisualizacao("ecra");
+  });
+}
+
+if (botaoModoImpressao) {
+  botaoModoImpressao.addEventListener("click", function () {
+    definirModoVisualizacao("impressao");
+  });
+}
+
+// Modo ecrã por defeito
+definirModoVisualizacao("ecra");
+
+// =========================================
+// PAINEL DE ESTATÍSTICAS
+// =========================================
+
+const botaoAbrirEstatisticas =
+  document.getElementById("abrir-estatisticas");
+
+const botaoFecharEstatisticas =
+  document.getElementById("fechar-estatisticas");
+
+const painelEstatisticas =
+  document.getElementById("painel-estatisticas");
+
+function carregarEstatisticas() {
+
+  const dados = JSON.parse(
+    localStorage.getItem("geriatria-estatisticas")
+  ) || {
+    totalDocumentos: 0,
+    temas: {},
+    recomendacoesIndividualizadas: 0,
+    utilizacaoPorDia: {},
+    detalhePorDia: {}
+  };
+
+  if (!dados.detalhePorDia) {
+    dados.detalhePorDia = {};
+  }
+
+  const filtro =
+    document.getElementById("estat-filtro-periodo").value;
+
+  const agora = new Date();
+
+  const anoAtual = agora.getFullYear();
+  const mesAtual = agora.getMonth(); // 0 = janeiro
+
+
+  // =========================================
+  // DEFINIR SE UMA DATA PERTENCE AO PERÍODO
+  // =========================================
+
+  function dataPertenceAoPeriodo(dataTexto) {
+
+    const partes = dataTexto.split("-");
+
+    const ano = Number(partes[0]);
+    const mes = Number(partes[1]) - 1;
+
+    if (filtro === "total") {
+      return true;
+    }
+
+    if (filtro === "ano-atual") {
+      return ano === anoAtual;
+    }
+
+    if (filtro === "mes-atual") {
+      return (
+        ano === anoAtual &&
+        mes === mesAtual
+      );
+    }
+
+    if (filtro === "mes-anterior") {
+
+      let anoAnterior = anoAtual;
+      let mesAnterior = mesAtual - 1;
+
+      if (mesAnterior < 0) {
+        mesAnterior = 11;
+        anoAnterior -= 1;
+      }
+
+      return (
+        ano === anoAnterior &&
+        mes === mesAnterior
+      );
+    }
+
+    return false;
+  }
+
+
+  // =========================================
+  // CALCULAR DADOS DO PERÍODO
+  // =========================================
+
+  let documentosPeriodo = 0;
+  let individualizadasPeriodo = 0;
+  let diasComUtilizacao = 0;
+
+  const temasPeriodo = {};
+
+
+  Object.entries(dados.detalhePorDia).forEach(
+    function ([data, detalhe]) {
+
+      if (!dataPertenceAoPeriodo(data)) {
+        return;
+      }
+
+      if (detalhe.documentos > 0) {
+        diasComUtilizacao += 1;
+      }
+
+      documentosPeriodo +=
+        detalhe.documentos || 0;
+
+      individualizadasPeriodo +=
+        detalhe.individualizadas || 0;
+
+
+      Object.entries(detalhe.temas || {}).forEach(
+        function ([tema, quantidade]) {
+
+          if (!temasPeriodo[tema]) {
+            temasPeriodo[tema] = 0;
+          }
+
+          temasPeriodo[tema] += quantidade;
+
+        }
+      );
+
+    }
+  );
+
+
+  // =========================================
+  // CARTÕES
+  // =========================================
+
+  document.getElementById("estat-total").textContent =
+    documentosPeriodo;
+
+  document.getElementById("estat-mes").textContent =
+    diasComUtilizacao;
+
+  document.getElementById("estat-individualizadas").textContent =
+    individualizadasPeriodo;
+
+
+  // =========================================
+  // NOMES DOS TEMAS
+  // =========================================
+
+  const nomesTemas = {
+    quedas: "Quedas",
+    "alimentacao-demencia": "Alimentação na Demência",
+    delirium: "Delirium",
+    obstipacao: "Obstipação",
+    sono: "Alterações do sono"
+  };
+
+
+  // =========================================
+  // ORDENAR TEMAS
+  // =========================================
+
+  const temasOrdenados =
+    Object.entries(temasPeriodo)
+      .sort((a, b) => b[1] - a[1]);
+
+
+  const temaMaisUtilizado =
+    temasOrdenados.length > 0
+      ? temasOrdenados[0][0]
+      : null;
+
+
+  document.getElementById("estat-tema-top").textContent =
+    temaMaisUtilizado
+      ? (nomesTemas[temaMaisUtilizado] || temaMaisUtilizado)
+      : "—";
+
+
+  // =========================================
+  // RANKING
+  // =========================================
+
+  const listaTemas =
+    document.getElementById("lista-temas-estatisticas");
+
+  listaTemas.innerHTML = "";
+
+
+  if (temasOrdenados.length === 0) {
+
+    listaTemas.innerHTML = `
+      <p style="color:#6b7e7e; font-size:14px;">
+        Sem dados para este período.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  const maiorQuantidade =
+    temasOrdenados[0][1];
+
+
+  temasOrdenados.forEach(
+    function ([tema, quantidade]) {
+
+      const percentagem =
+        Math.round(
+          (quantidade / maiorQuantidade) * 100
+        );
+
+      const linha =
+        document.createElement("div");
+
+      linha.className =
+        "linha-ranking-estatisticas";
+
+      linha.innerHTML = `
+        <div class="ranking-topo">
+          <span>${nomesTemas[tema] || tema}</span>
+          <strong>${quantidade}</strong>
+        </div>
+
+        <div class="barra-ranking">
+          <div
+            class="barra-ranking-preenchimento"
+            style="width: ${percentagem}%"
+            aria-hidden="true"
+          ></div>
+        </div>
+      `;
+
+      listaTemas.appendChild(linha);
+
+    }
+  );
+
+}
+
+document
+  .getElementById("estat-filtro-periodo")
+  .addEventListener(
+    "change",
+    carregarEstatisticas
+  );
+
+
+// Abrir painel
+botaoAbrirEstatisticas.addEventListener(
+  "click",
+  function () {
+
+    carregarEstatisticas();
+
+    painelEstatisticas.classList.remove("oculto");
+
+    painelEstatisticas.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+);
+
+
+// Fechar painel
+botaoFecharEstatisticas.addEventListener(
+  "click",
+  function () {
+
+    painelEstatisticas.classList.add("oculto");
+
+  }
+);
+
+// ===============================
+// SERVICE WORKER / PWA
+// ===============================
+
+// ===============================
+// SERVICE WORKER / ATUALIZAÇÕES PWA
+// ===============================
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", async function () {
+
+    try {
+
+      const registration =
+        await navigator.serviceWorker.register("./service-worker.js");
+
+      console.log(
+        "Service Worker registado:",
+        registration.scope
+      );
+
+      const avisoAtualizacao =
+        document.getElementById("aviso-atualizacao");
+
+      const botaoAtualizar =
+        document.getElementById("botao-atualizar-app");
+
+
+      // --------------------------------
+      // Mostrar aviso
+      // --------------------------------
+
+      function mostrarAtualizacao(worker) {
+
+        if (!worker) return;
+
+        avisoAtualizacao.classList.remove("oculto");
+
+        botaoAtualizar.onclick = function () {
+
+          worker.postMessage({
+            type: "SKIP_WAITING"
+          });
+
+        };
+      }
+
+
+      // --------------------------------
+      // Já existe atualização à espera
+      // --------------------------------
+
+      if (registration.waiting) {
+        mostrarAtualizacao(registration.waiting);
+      }
+
+
+      // --------------------------------
+      // Detetar nova versão
+      // --------------------------------
+
+      registration.addEventListener(
+        "updatefound",
+        function () {
+
+          const novoWorker = registration.installing;
+
+          if (!novoWorker) return;
+
+          novoWorker.addEventListener(
+            "statechange",
+            function () {
+
+              if (
+                novoWorker.state === "installed" &&
+                navigator.serviceWorker.controller
+              ) {
+
+                mostrarAtualizacao(novoWorker);
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+      // --------------------------------
+      // Verificar atualizações
+      // --------------------------------
+
+      registration.update();
+
+
+      // --------------------------------
+      // Nova versão assumiu o controlo
+      // --------------------------------
+
+      let recarregando = false;
+
+      navigator.serviceWorker.addEventListener(
+        "controllerchange",
+        function () {
+
+          if (recarregando) return;
+
+          recarregando = true;
+
+          window.location.reload();
+
+        }
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Erro ao registar Service Worker:",
+        error
+      );
+
+    }
+
+  });
+
+}
+
+const botaoLimparEstatisticas =
+  document.getElementById("limpar-estatisticas");
+
+if (botaoLimparEstatisticas) {
+
+  botaoLimparEstatisticas.addEventListener(
+    "click",
+    function () {
+
+      const confirmar = confirm(
+        "Tem a certeza de que pretende eliminar todas as estatísticas guardadas neste dispositivo?"
+      );
+
+      if (!confirmar) {
+        return;
+      }
+
+      localStorage.removeItem(
+        "geriatria-estatisticas"
+      );
+
+      carregarEstatisticas();
+
+      alert(
+        "As estatísticas deste dispositivo foram eliminadas."
+      );
+
+    }
+  );
+
+}
+
+const elementoVersao = document.getElementById("versao-app");
+
+if (elementoVersao) {
+  elementoVersao.textContent = `Versão ${APP_VERSION}`;
+}
