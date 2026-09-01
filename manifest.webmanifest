@@ -1,0 +1,26 @@
+{
+  "name": "Consulta Geriatria",
+"short_name": "Consulta Geriatria",
+  "description": "Aplicação de apoio à Consulta de Geriatria para geração de recomendações personalizadas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#147a76",
+  "lang": "pt-PT",
+  "orientation": "any",
+ "icons": [
+  {
+    "src": "imagens/icon-mobile-512.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any"
+  },
+  {
+    "src": "imagens/icon-mobile-512.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "maskable"
+  }
+]
+}
