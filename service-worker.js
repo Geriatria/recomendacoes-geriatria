@@ -1,13 +1,16 @@
-const CACHE_NAME = "geriatria-v12";
+const CACHE_NAME = "geriatria-v18-cabecalho";
 
 const APP_FILES = [
   "./",
   "./index.html",
+  "./recomendacoes.html",
+  "./plano-terapeutico.html",
   "./style.css",
   "./script.js",
   "./manifest.webmanifest",
   "./imagens/geriatria-sem-texto.png",
   "./imagens/logo-ulsra.jpg",
+  "./imagens/logo-ulsra-transparente.png",
   "./imagens/icon-192.png",
   "./imagens/icon-512.png",
   "./imagens/icon-mobile-512.png"
@@ -53,6 +56,8 @@ self.addEventListener("fetch", function (event) {
   const ficheiroAtualizavel =
     url.pathname.endsWith("/") ||
     url.pathname.endsWith("/index.html") ||
+    url.pathname.endsWith("/recomendacoes.html") ||
+    url.pathname.endsWith("/plano-terapeutico.html") ||
     url.pathname.endsWith("/style.css") ||
     url.pathname.endsWith("/script.js") ||
     url.pathname.endsWith("/manifest.webmanifest");

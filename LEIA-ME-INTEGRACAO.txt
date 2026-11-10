@@ -1,0 +1,9 @@
+VERSÃO DE TESTES — MENU INICIAL
+
+Abra index.html para escolher entre Recomendações Consulta de Geriatria e Plano terapêutico.
+A aplicação original encontra-se em recomendacoes.html.
+O Plano Terapêutico encontra-se em plano-terapeutico.html.
+
+Para testar PWA/offline, sirva a pasta por localhost (ex.: Live Server do VS Code) ou HTTPS; a abertura direta por file:// não ativa o service worker.
+
+Não substitua ainda a versão publicada; teste navegação, interpretação, impressão e modo offline.

@@ -1934,3 +1934,10 @@ body.modo-impressao .acoes-resultado {
     padding-top: 4px;
   }
 }
+/* Navegação entre módulos: não interfere com os elementos originais. */
+.modulos-geriatria{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 20px}
+.modulos-geriatria .modulo-ativo,.modulos-geriatria .modulo-link{display:inline-block;padding:11px 17px;border-radius:9px;font-weight:700;font-size:15px;line-height:1.3;text-decoration:none}
+.modulos-geriatria .modulo-ativo{background:#147a76;color:#fff}
+.modulos-geriatria .modulo-link{background:#fff;border:2px solid #147a76;color:#12635e}
+.modulos-geriatria .modulo-link:hover,.modulos-geriatria .modulo-link:focus{background:#e4f2ef}
+@media print{.modulos-geriatria{display:none!important}}
